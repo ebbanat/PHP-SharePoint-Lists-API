@@ -24,6 +24,3 @@ spl_autoload_register(function ($classname) {
 		. ".php";
 	include_once $classname;
 });
-
-# https://hubsystemsconz.sharepoint.com/sites/SambaReplacement/_vti_bin/Lists.asmx?wsdl
-# ^ That should get the wsdl for the one we have for our development
