@@ -2,10 +2,9 @@
   include 'SharePointAPI.php';
   use Thybag\SharePointAPI;
   
-  # Getting WSDL
+  # Getting WSDL (our own SharePoint)
   # wget https://hubsystemsconz.sharepoint.com/sites/SambaReplacement/_vti_bin/Lists.asmx?wsdl
-  # ^ That should get the wsdl for the one we have for our development
-  # get the site name and append _vti_bin/Lists.asmx?wsdl
+  # get the domain and the site name then append "_vti_bin/Lists.asmx?wsdl"
 
   $username = "nathan@hubsystems.com.au";
   $password = "h538jjSBjtmC"; // This cannot contain symbols
