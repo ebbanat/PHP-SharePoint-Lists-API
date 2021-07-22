@@ -1,34 +1,39 @@
 <?php
-  # to get the read me
   include 'SharePointAPI.php';
   use Thybag\SharePointAPI;
   
-  # get WSDL
+  # Getting WSDL
   # wget https://hubsystemsconz.sharepoint.com/sites/SambaReplacement/_vti_bin/Lists.asmx?wsdl
   # ^ That should get the wsdl for the one we have for our development
+  # get the site name and append _vti_bin/Lists.asmx?wsdl
 
+  $username = "nathan@hubsystems.com.au";
+  $password = "h538jjSBjtmC"; // This cannot contain symbols
+  $wsdl = "SambaReplacement.wsdl";
+
+  $filename = "steel.txt";
+  $filepath = "steel.txt";
 
   try {
+    $sp = new SharePointAPI($username, $password, $wsdl, "SPONLINE");
 
-    $sp = new SharePointAPI("nathan@hubsystems.com.au", "h538jjSBjtmC", "SambaReplacement.wsdl", "SPONLINE");
+    # add new entry
+    $uniqid = $filename . uniqid();
+    $sp->write('First List', array('Title' => $uniqid));
 
-    // get list by name 
-    $first_list = $sp->read('First List');
+    # find the item that we just added
+    $query = $sp->query('First List')->where('Title', '=', $uniqid)->get();
 
     # print the values of the list 
-    foreach($first_list as $key => $value) {
-      echo "entry:" . $key . "\n";
-      foreach($value as $key => $value1) {
-        echo "\t" . $key . ":" . $value1 . "\n";
-      }
-    }
+    // foreach($first_list as $key => $value) {
+    //   echo "entry:" . $key . "\n";
+    //   foreach($value as $key => $value1) {
+    //     echo "\t" . $key . ":" . $value1 . "\n";
+    //   }
+    // }
 
-    # add new entry (report name or something best to be unique)
-
-    # get the position of new entry
-
-    # attach the entry
-    print_r($sp->addAttachment('First List', 0, 'foo.txt'));
+    # attach file 
+    echo $filename . " attached to " . $uniqid . " with the id: " . $sp->addAttachment('First List', $query[0]['id'], $filename);
 
   } catch (Exception $e) {
     echo 'Caught Exception: ', $e->getMessage(), "\n";
