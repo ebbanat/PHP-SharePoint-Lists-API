@@ -958,7 +958,7 @@ class SharePointAPI {
 		} catch (\SoapFault $fault) {
 			$this->onError($fault);
 		}
-
+		
 		// Return a XML as nice clean Array
 		return $result;
 	}
